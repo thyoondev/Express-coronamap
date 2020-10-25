@@ -1,96 +1,208 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <title>실시간 코로나 발생 현황</title>
-    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
     <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=87p51rsq4y"></script>
-</head>
-<body>
-  <div id = "navbar">🚨실시간 코로나 발생 현황🚨</div>
+  </head>
+
+  <body>
+    <div id="navbar">CoronaInfo</div>
+
+    <!-- 현재 날짜 박스-->
+
     <div id="infoBox">
-      <div id="infoTitle">현재 날짜</div>
-      <div id="infoContent" ><span id="showToday" onload="getToday()"></span></div>
+      <div id="infoTitle">국내 현황</div>
+      <div id="infoToday"></div>
+      <div id="infoContent">
+        <br />
+        <div id="infoList1">
+          <div class="infoName">확진환자</div>
+          <div id="infoAll"></div>
+          <div class="infoAdd">&utrif;61</div>
+        </div>
+        <br />
+        <div id="infoList2">
+          <div class="infoName">검사중</div>
+          <div id="infoChecking"></div>
+          <div class="infoAdd">&dtrif;206</div>
+        </div>
+        <br />
+        <div id="infoList3">
+          <div class="infoName">격리해제</div>
+          <div id="infoFine"></div>
+          <div class="infoAdd">&utrif;35</div>
+        </div>
+        <br />
+        <div id="infoList4">
+          <div class="infoName">사망자</div>
+          <div id="infoDied"></div>
+          <div class="infoAdd">-</div>
+        </div>
+      </div>
     </div>
 
-<div id="map" style="width:100%;height:100vh;"></div>
-<script type="text/javascript"src="/data/data.js"></script>
-<script>
-  let today = new Date();   
+    <!-- 날짜 구분 박스-->
+    <div id="dateInfoBox">
+      <div id="dateInfoTitle">방문날짜에 따른 색상구분</div>
+      <div id="dateInfo1">
+        <div id="circle1"></div>
+        24시간 미만
+      </div>
+      <div id="dateInfo2">
+        <div id="circle2"></div>
+        24시간 이상 4일 미만
+      </div>
+      <div id="dateInfo3">
+        <div id="circle3"></div>
+        4일 이상 14일 이하
+      </div>
+    </div>
 
-  let year = today.getFullYear(); // 년도
-  let month = today.getMonth() + 1;  // 월
-  let date = today.getDate();  // 날짜
-  let day = today.getDay();  // 요일
+    <!-- 개발자 정보 박스-->
+    <div id="devInfoBox">
+      <div id="devInfo">개발자 연락처</div>
+      <div id="devContect">th.yoon.dev@gmail.com</div>
+    </div>
 
-  today = year + '년 ' + month + '월 ' + date + '일';
-  document.getElementById("showToday").innerHTML = today;
-</script>
-<script>
-var mapOptions = {
-    center: new naver.maps.LatLng(37.3595704, 127.105399),
-    zoom: 10
-};
+    <div id="map" style="width: 100%; height: 100vh"></div>
+    <script type="text/javascript" src="/data/data.js"></script>
 
-var map = new naver.maps.Map('map', mapOptions);
+    <!--현재 날짜 출력-->
+    <script>
+      let today = new Date();
 
-var markerList = [];
-var infowindowList = [];
+      let year = today.getFullYear(); // 년도
+      let month = today.getMonth() + 1; // 월
+      let date = today.getDate(); // 날짜
+      let day = today.getDay(); // 요일
 
-for(var i in data){
-  var target = data[i];
-  var latlng = new naver.maps.LatLng(target.lat, target.lng);
-  marker = new naver.maps.Marker({
-    map : map,
-    position : latlng,
-    icon :{
-      content : "<div class='marker'></div>",
-      anchor : new naver.maps.Point(12,12)
-    },
-  });
+      today = year + "/" + month + "/" + date; //날짜 형식
+      document.getElementById("infoToday").innerHTML = today; //showToday 안에 현재 날짜 보여줌
+    </script>
+    <script>
+      document.getElementById("infoAll").innerHTML = "23,836명";
+      document.getElementById("infoChecking").innerHTML = "21,682명";
+      document.getElementById("infoFine").innerHTML = "23,869명";
+      document.getElementById("infoDied").innerHTML = "457명";
+    </script>
+    <script>
+      //지도 초기화면 값
+      var mapOptions = {
+        center: new naver.maps.LatLng(36.35045075252815, 127.38481468495347), //지도의 초기 중심 좌표
+        zoom: 12, //지도 초기 줌 레벨
+        minZoom: 7, //지도의 최소 줌 레벨
+        zoomControl: false, //줌 컨트롤의 표시 여부
+        //줌 컨트롤의 옵션
+        zoomControlOptions: {
+          position: naver.maps.Position.TOP_RIGHT,
+          style: naver.maps.ZoomControlStyle.LARGE,
+        },
+        logoControl: false, //로고 컨트롤
+        mapDataControl: true, //일반 위성 컨트롤
+        mapTypeControl: false, //
+      };
 
-  var content = `<div class='infowindow_wrap'>
-    <div class='infowindow_title'>${target.title}</div>
-    <div class='infowindow_content'>${target.content}</div>
-    <div class='infowindow_date'>${target.date}</div>
-    </div>`
+      var map = new naver.maps.Map("map", mapOptions);
 
-    var infowindow = new naver.maps.InfoWindow({
-      content : content,
-      backgroundColor : "#00ff0000",
-      borderColor : "#00ff0000",
-      anchorSize: new naver.maps.Size(0,0)
-    })
+      var markerList = [];
+      var infowindowList = [];
 
-    markerList.push(marker);
-    infowindowList.push(infowindow);
-}
+      //마커생성
+      for (var i in data) {
+        var target = data[i];
+        var latlng = new naver.maps.LatLng(target.lat, target.lng);
 
-for(var i = 0, ii = markerList.length; i < ii; i++){
-  naver.maps.Event.addListener(map,"click",ClickMap(i));
-  naver.maps.Event.addListener(markerList[i],"click",getClickHandler(i));
-}
+        //두 날짜 계산
+        // data.js에서 날짜 받아오기
+        const date1 = new Date(target.year, target.month, target.date);
+        // 오늘 날짜
+        const date2 = new Date(year, month, date);
 
-function ClickMap(i){
-  return function(){
-    var infowindow = infowindowList[i];
-    infowindow.close()
-  }
-}
+        const elapsedMSec = date2.getTime() - date1.getTime(); // 경과 초 구하기
+        const elapsedDay = elapsedMSec / 1000 / 60 / 60 / 24; // 경과 일 구하기
 
-function getClickHandler(i){
-  return function() {
-    var marker = markerList[i];
-    var infowindow = infowindowList[i];
-    if (infowindow.getMap()){
-      infowindow.close();
-    }else{
-      infowindow.open(map, marker); 
-    }
-  }
-}
-</script>
-</body>
+        //방문 24시간 미만일경우
+        if (elapsedDay < 1) {
+          marker = new naver.maps.Marker({
+            map: map,
+            position: latlng,
+            icon: {
+              content: "<div class='marker1'></div>",
+              anchor: new naver.maps.Point(12, 12),
+            },
+          });
+        }
+        //방문  24시간이상 4일 미만일경우
+        if (elapsedDay >= 1 && elapsedDay < 4) {
+          marker = new naver.maps.Marker({
+            map: map,
+            position: latlng,
+            icon: {
+              content: "<div class='marker2'></div>",
+              anchor: new naver.maps.Point(12, 12),
+            },
+          });
+        }
+        //방문  4일이상 14일 이하일경우
+        if (elapsedDay >= 4 && elapsedDay <= 14) {
+          marker = new naver.maps.Marker({
+            map: map,
+            position: latlng,
+            icon: {
+              content: "<div class='marker3'></div>",
+              anchor: new naver.maps.Point(12, 12),
+            },
+          });
+        }
+
+        var content = `<div class='infowindow_wrap'>
+       <div class='infowindow_title'>${target.title}</div>
+       <div class='infowindow_content'>${target.content}</div>
+       <div class='infowindow_date'>${target.year}/${target.month}/${target.date}</div>
+       </div>`;
+
+        //마커정보박스
+        var infowindow = new naver.maps.InfoWindow({
+          content: content,
+          backgroundColor: "#00ff0000",
+          borderColor: "#00ff0000",
+          anchorSize: new naver.maps.Size(0, 0),
+        });
+
+        markerList.push(marker);
+        infowindowList.push(infowindow);
+      }
+
+      //마커 정보 박스 클릭 이벤트
+      for (var i = 0, ii = markerList.length; i < ii; i++) {
+        naver.maps.Event.addListener(map, "click", ClickMap(i));
+        naver.maps.Event.addListener(markerList[i], "click", getClickHandler(i));
+      }
+
+      //지도 클릭할 때
+      function ClickMap(i) {
+        return function () {
+          var infowindow = infowindowList[i];
+          infowindow.close();
+        };
+      }
+
+      //마커 클릭할때
+      function getClickHandler(i) {
+        return function () {
+          var marker = markerList[i];
+          var infowindow = infowindowList[i];
+          if (infowindow.getMap()) {
+            infowindow.close();
+          } else {
+            infowindow.open(map, marker);
+          }
+        };
+      }
+    </script>
+  </body>
 </html>

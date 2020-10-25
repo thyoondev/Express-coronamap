@@ -1,63 +1,183 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap");
+
 body {
   margin: 0;
   padding: 0px !important;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-#navbar{
-  height: 50px;
-  width: 100%;
-  background: #262626;
-  color: white;
-  font-weight: bolder;
-  font-size: 25px;
+#navbar {
+  position: absolute;
+  height: 60px;
+  width: 170px;
+  left: 50px;
+  top: 50px;
+  background: white;
+  color: black;
+  font-size: 28px;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-family: "Cairo", sans-serif;
+  z-index: 10000;
+  border-radius: 50px;
+  opacity: 0.9;
 }
 
-#infoBox{
+#infoBox {
   position: absolute;
-  top: 100px;
+  height: 470px;
+  width: 170px;
+  left: 50px;
+  top: 130px;
   z-index: 100000;
   background: white;
-  left: 20px;
-  padding: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  color: black;
+  border-radius: 30px;
   text-align: center;
+  font-family: "Noto Sans KR", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  opacity: 0.7;
 }
 
-#infoTitle{
-  font-size: 15px;
+#infoTitle {
+  font-size: 24px;
   font-weight: bolder;
 }
+#devInfoBox {
+  position: absolute;
+  height: 50px;
+  left: 10px;
+  bottom: 10px;
+  color: black;
+  font-size: 13px;
+  font-family: "Cairo", sans-serif;
+  z-index: 10000;
+}
 
-.marker{
+.infoName {
+  font-size: 17px;
+  font-weight: bolder;
+}
+.infoAdd {
+  font-size: 15px;
+}
+#infoList1 {
+  color: red;
+  font-size: 21px;
+}
+#infoList2 {
+  color: orange;
+  font-size: 21px;
+}
+#infoList3 {
+  color: blue;
+  font-size: 21px;
+}
+#infoList4 {
+  color: black;
+  font-size: 21px;
+}
+
+#dateInfoBox {
+  position: absolute;
+  height: 80px;
+  width: 150px;
+  right: 0;
+  bottom: 0px;
+  z-index: 100000;
+  background: white;
+  color: black;
+  border-radius: 10px;
+  text-align: center;
+  font-family: "Noto Sans KR", sans-serif;
+  text-align: right;
+  padding: 5px;
+  opacity: 0.9;
+}
+
+#dateInfoTitle {
+  border-bottom: solid 1px black;
+  font-weight: bolder;
+}
+#circle1 {
+  border: 1px solid black;
+  background: red;
+  opacity: 0.7;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  float: left;
+  margin-top: 3px;
+}
+#circle2 {
+  border: 1px solid black;
+  background: orange;
+  opacity: 0.7;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  float: left;
+  margin-top: 3px;
+}
+#circle3 {
   border: 1px solid black;
   background: green;
-  opacity: 0.8;
+  opacity: 0.7;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  float: left;
+  margin-top: 3px;
+}
+.marker1 {
+  border: 1px solid black;
+  background: red;
+  opacity: 0.7;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+.marker2 {
+  border: 1px solid black;
+  background: orange;
+  opacity: 0.7;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+.marker3 {
+  border: 1px solid black;
+  background: green;
+  opacity: 0.7;
   width: 24px;
   height: 24px;
   border-radius: 50%;
 }
 
-.infowindow_wrap{
+.infowindow_wrap {
   background: white;
   padding: 20px;
-  border: 1px solid rgba(0,0,0,0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.infowindow_title{
+.infowindow_title {
   font-size: 15px;
   font-weight: bolder;
 }
 
-.infowindow_content{
+.infowindow_content {
   font-size: 13px;
   font-weight: normal;
 }
 
-.infowindow_date  {
+.infowindow_date {
   font-size: 13px;
   font-weight: normal;
 }
