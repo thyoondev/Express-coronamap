@@ -10,13 +10,13 @@
   </head>
 
   <body>
-    <div id="navbar">CoronaInfo</div>
-
+    <div id="navbar" onclick="infoEvent()">CoronaInfo
+    </div>
     <!-- 현재 날짜 박스-->
 
     <div id="infoBox">
       <div id="infoTitle">국내 현황</div>
-      <div id="infoToday"></div>
+      <!--<div id="infoToday"></div>-->
       <div id="infoContent">
         <br />
         <div id="infoList1">
@@ -46,6 +46,38 @@
       </div>
     </div>
 
+    <div id="infoBoxLocation">
+      <div id="infoTitleLocation"></div>
+      <!--<div id="infoToday"></div>-->
+      <div id="infoContent">
+        <br />
+        <div id="infoList1">
+          <div class="infoName">확진환자</div>
+          <div id="infoAllLocation"></div>
+        </div>
+        <br />
+        <div id="infoList2">
+          <div class="infoName">검사중</div>
+          <div id="infoCheckingLocation"></div>
+        </div>
+        <br />
+        <div id="infoList3">
+          <div class="infoName">격리해제</div>
+          <div id="infoFineLocation"></div>
+        </div>
+        <br />
+        <div id="infoList4">
+          <div class="infoName">사망자</div>
+          <div id="infoDiedLocation"></div>
+        </div>
+        <br />
+        <div id="infoList5">
+          <div class="infoName">업데이트</div>
+          <div id="infoStateDtLocation"></div>
+        </div>
+      </div>
+    </div>
+
     <!-- 날짜 구분 박스-->
     <div id="dateInfoBox">
       <div id="dateInfoTitle">방문날짜에 따른 색상구분</div>
@@ -61,12 +93,10 @@
         <div id="circle3"></div>
         4일 이상 14일 이하
       </div>
-    </div>
-
-    <!-- 개발자 정보 박스-->
-    <div id="devInfoBox">
-      <div id="devInfo">개발자 연락처</div>
-      <div id="devContect">th.yoon.dev@gmail.com</div>
+      <div id="dateInfo3">
+        th.yoon.dev@gmail.com
+      </div>
+      
     </div>
 
     <div id="map" style="width: 100%; height: 100vh"></div>
@@ -86,7 +116,7 @@
 
       today = year + "/" + month + "/" + date; //날짜 형식
 
-      document.getElementById("infoToday").innerHTML = today; //showToday 안에 현재 날짜 보여줌
+      //document.getElementById("infoToday").innerHTML = today; //showToday 안에 현재 날짜 보여줌
     </script>
 
     <script>
@@ -97,8 +127,8 @@
       queryParams += "&" + encodeURIComponent("ServiceKey") + "=" + encodeURIComponent("-"); /**/
       queryParams += "&" + encodeURIComponent("pageNo") + "=" + encodeURIComponent("1"); /**/
       queryParams += "&" + encodeURIComponent("numOfRows") + "=" + encodeURIComponent("1"); /**/
-      queryParams += "&" + encodeURIComponent("startCreateDt") + "=" + encodeURIComponent(String(year) + String(month) + String(date - 1)); /**/
-      queryParams += "&" + encodeURIComponent("endCreateDt") + "=" + encodeURIComponent(String(year) + String(month) + String(date - 1)); /**/
+      queryParams += "&" + encodeURIComponent("startCreateDt") + "=" + encodeURIComponent(String(year) + String(month) + String(date)); /**/
+      queryParams += "&" + encodeURIComponent("endCreateDt") + "=" + encodeURIComponent(String(year) + String(month) + String(date)); /**/
       xhr.open("GET", url + queryParams);
       xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
@@ -129,32 +159,33 @@
       queryParams += "&" + encodeURIComponent("ServiceKey") + "=" + encodeURIComponent("-"); /**/
       queryParams += "&" + encodeURIComponent("pageNo") + "=" + encodeURIComponent("1"); /**/
       queryParams += "&" + encodeURIComponent("numOfRows") + "=" + encodeURIComponent("1"); /**/
-      queryParams += "&" + encodeURIComponent("startCreateDt") + "=" + encodeURIComponent(String(year) + String(month) + String(date - 1)); /**/
-      queryParams += "&" + encodeURIComponent("endCreateDt") + "=" + encodeURIComponent(String(year) + String(month) + String(date - 1)); /**/
+      queryParams += "&" + encodeURIComponent("startCreateDt") + "=" + encodeURIComponent(String(year) + String(month) + String(date)); /**/
+      queryParams += "&" + encodeURIComponent("endCreateDt") + "=" + encodeURIComponent(String(year) + String(month) + String(date)); /**/
       xhr.open("GET", url + queryParams);
+      console.log(url + queryParams);
       xhr.onreadystatechange = function () {
         if (this.readyState == 4) {
           var xmlDoc = this.responseXML;
 
-          var infoDecideCnt = xmlDoc.getElementsByTagName("1")[0].childNodes[0].nodeValue;
-          var infoExamCnt = xmlDoc.getElementsByTagName("2")[0].childNodes[0].nodeValue;
-          var infoClearCnt = xmlDoc.getElementsByTagName("3")[0].childNodes[0].nodeValue;
-          var infoDeathCnt = xmlDoc.getElementsByTagName("4")[0].childNodes[0].nodeValue;
-          var infoStateDt = xmlDoc.getElementsByTagName("5")[0].childNodes[0].nodeValue;
+          var infoLocation = xmlDoc.getElementsByTagName("gubun")[12].childNodes[0].nodeValue;
+          var infoDefCnt = xmlDoc.getElementsByTagName("defCnt")[12].childNodes[0].nodeValue;
+          var infoIsolClearCnt = xmlDoc.getElementsByTagName("isolClearCnt")[12].childNodes[0].nodeValue;
+          var infoDeathCnt = xmlDoc.getElementsByTagName("deathCnt")[12].childNodes[0].nodeValue;
+          var infoStdDay = xmlDoc.getElementsByTagName("stdDay")[12].childNodes[0].nodeValue;
+
+
+          //html태그안에 데이터 값 넣어주기
+          document.getElementById("infoTitleLocation").innerHTML = infoLocation;
+          document.getElementById("infoAllLocation").innerHTML = infoDefCnt + "명";
+          document.getElementById("infoFineLocation").innerHTML = infoIsolClearCnt + "명";
+          document.getElementById("infoDiedLocation").innerHTML = infoDeathCnt + "명";
+          document.getElementById("infoStateDtLocation").innerHTML = infoStdDay;
         }
       };
 
       xhr.send("");
     </script>
     <script>
-      /*
-      //행정구역 GeoJSON 선언 변수
-      var HOME_PATH = window.HOME_PATH || ".",
-        urlPrefix = HOME_PATH + "/data/region",
-        urlSuffix = ".json",
-        regionGeoJson = [],
-        loadCount = 0;
-*/
       //지도 초기화면 값
       var mapOptions = {
         center: new naver.maps.LatLng(36.35045075252815, 127.38481468495347), //지도의 초기 중심 좌표
@@ -173,98 +204,6 @@
       };
 
       var map = new naver.maps.Map("map", mapOptions);
-      /*
-      //행정구역 GeoJSON************************************************************************
-      naver.maps.Event.once(map, "init_stylemap", function () {
-        for (var i = 1; i < 18; i++) {
-          var keyword = i + "";
-
-          if (keyword.length === 1) {
-            keyword = "0" + keyword;
-          }
-
-          $.ajax({
-            url: urlPrefix + keyword + urlSuffix,
-            success: (function (idx) {
-              return function (geojson) {
-                regionGeoJson[idx] = geojson;
-
-                loadCount++;
-
-                if (loadCount === 17) {
-                  startDataLayer();
-                }
-              };
-            })(i - 1),
-          });
-        }
-      });
-
-      var tooltip = $('<div style="position:absolute;z-index:1000;padding:5px 10px;background-color:#fff;border:solid 2px #000;font-size:14px;pointer-events:none;display:none;"></div>');
-
-      tooltip.appendTo(map.getPanes().floatPane);
-
-      function startDataLayer() {
-        map.data.setStyle(function (feature) {
-          var styleOptions = {
-            fillColor: "#ff0000",
-            fillOpacity: 0.0001,
-            strokeColor: "#ff0000",
-            strokeWeight: 2,
-            strokeOpacity: 0.4,
-          };
-
-          if (feature.getProperty("focus")) {
-            styleOptions.fillOpacity = 0.6;
-            styleOptions.fillColor = "#0f0";
-            styleOptions.strokeColor = "#0f0";
-            styleOptions.strokeWeight = 4;
-            styleOptions.strokeOpacity = 1;
-          }
-
-          return styleOptions;
-        });
-
-        regionGeoJson.forEach(function (geojson) {
-          map.data.addGeoJson(geojson);
-        });
-
-        map.data.addListener("click", function (e) {
-          var feature = e.feature;
-
-          if (feature.getProperty("focus") !== true) {
-            feature.setProperty("focus", true);
-          } else {
-            feature.setProperty("focus", false);
-          }
-        });
-
-        map.data.addListener("mouseover", function (e) {
-          var feature = e.feature,
-            regionName = feature.getProperty("area1");
-
-          tooltip
-            .css({
-              display: "",
-              left: e.offset.x,
-              top: e.offset.y,
-            })
-            .text(regionName);
-
-          map.data.overrideStyle(feature, {
-            fillOpacity: 0.6,
-            strokeWeight: 4,
-            strokeOpacity: 1,
-          });
-        });
-
-        map.data.addListener("mouseout", function (e) {
-          tooltip.hide().empty();
-          map.data.revertStyle();
-        });
-      }
-      //*******************************************************************************
-*/
       var markerList = [];
       var infowindowList = [];
 
@@ -283,7 +222,7 @@
         const elapsedDay = elapsedMSec / 1000 / 60 / 60 / 24; // 경과 일 구하기
 
         //방문 24시간 미만일경우
-        if (elapsedDay < 1) {
+        if (elapsedDay <= 1) {
           marker = new naver.maps.Marker({
             map: map,
             position: latlng,
@@ -294,7 +233,7 @@
           });
         }
         //방문  24시간이상 4일 미만일경우
-        if (elapsedDay >= 1 && elapsedDay < 4) {
+        if (elapsedDay > 1 && elapsedDay < 4) {
           marker = new naver.maps.Marker({
             map: map,
             position: latlng,
@@ -360,6 +299,29 @@
           }
         };
       }
+    </script>
+
+    <script>
+      function infoEvent(){
+        var infoBox = document.getElementById("infoBox");
+        var infoBoxLocation = document.getElementById("infoBoxLocation");
+        var dateInfoBox = document.getElementById("dateInfoBox");
+        
+        if(infoBox.style.display == "none"){
+              //메뉴 보이기
+              infoBox.style.display = "block";
+              dateInfoBox.style.display = "block";
+              infoBoxLocation.style.display = "block";
+            }
+            else
+            {
+              
+              //메뉴 감추기
+              infoBox.style.display ="none";
+              infoBoxLocation.style.display ="none";
+              dateInfoBox.style.display = "none";
+            }
+                }
     </script>
   </body>
 </html>
