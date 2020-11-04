@@ -16,8 +16,9 @@
 
 ### Screenshot
 | ![https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/coronamap/1.png](https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/coronamap/1.png) | ![https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/coronamap/2.png](https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/coronamap/2.png) | 
-| 메뉴 축소시 화면 | 메뉴 확장시 화면 |
 |:---:|:---:|
+| 메뉴 축소시 화면 | 메뉴 확장시 화면 |
+
 
 ### Todo
 - 네이버 지도 API사용해서 맵 보여주기
