@@ -17,7 +17,7 @@
 ### Screenshot
 | ![https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/coronamap/1.png](https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/coronamap/1.png) | ![https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/coronamap/2.png](https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/coronamap/2.png) | 
 |:---:|:---:|
-| 메뉴 축소시 화면 | 메뉴 확장시 화면 |
+| 메뉴 축소 화면 | 메뉴 확장 화면 |
 
 
 ### Todo
