@@ -5,7 +5,7 @@
 
 Node.js의 express 프레임워크를 사용했다.
 
-[thyoondev/coronamap](https://github.com/thyoondev/coronamap/tree/master/coronamap)
+
 
 모바일에서 보기 편하게 기본적으로 메뉴를 전부 가려놨고, 작게 만들었다.
 
