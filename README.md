@@ -29,10 +29,10 @@ API는 처음 사용해봤고 XML이나 JSON이나 사실 정의가 완벽하게
 
 브라우저에서 현재위치 정보를 받아와 좌표값을 네이버 지도 API를 활용해 현재위치를 확인할 수 있는 버튼을 만들었다.
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4460aedc-8b77-4c3a-9f9e-8f60d6a219f4/1.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/4460aedc-8b77-4c3a-9f9e-8f60d6a219f4/1.png)
+![https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/coronamap/1.png](https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/coronamap/1.png)
 
 접속시 화면
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e9700808-2dfe-4907-84c5-cfaad536172e/2.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e9700808-2dfe-4907-84c5-cfaad536172e/2.png)
+![https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/coronamap/2.png](https://ikeaweb.s3.ap-northeast-2.amazonaws.com/gitimg/coronamap/2.png)
 
 메뉴 확장 화면
