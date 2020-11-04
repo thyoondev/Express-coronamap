@@ -1,6 +1,6 @@
 # 코로나맵 프로젝트
 ### Development environment
-- Vscode
+- VSCode
 - Node.js
 - Nodemon
 - Express
